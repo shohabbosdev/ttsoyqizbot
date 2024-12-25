@@ -7,7 +7,15 @@ bot = telebot.TeleBot(token, parse_mode="html")
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-	bot.reply_to(message, text=f"<b>Assalomu alaykum, bu botdan foydalanish uchun matnli xabar yozib qoldiring.</b>\n<i>Tez orada javobni oling</i>")
+	bot.reply_to(
+		message, 
+		text=(
+		f"Assalomu alaykum! @ttsuzgenbot botiga xush kelibsiz! 😊\n"
+		f"👉 Matndan audioga o‘girish uchun botga biror matn yuboring.\n"
+		f"🎙 Diqqa yuborilayotgan matnlarga yuboruvchining shaxsan o'zi javob beradi.\n"
+		f"Ushbu bot orqali har xil turdagi yomon so'zlarni yozib o'zingizni va boshqalarni hurmatini to'kmang! 🚀"
+		)
+	)
 
 @bot.message_handler(func=lambda message: True)
 def echo_all(message):
@@ -26,7 +34,7 @@ def echo_all(message):
 				message.chat.id, 
 				response.content, 
 				reply_to_message_id=message.id, 
-				caption= f'✍️ <pre>{message.text}</pre>\n\n👉@ttsuzgenbot', 
+				caption= f'✍️Siz yozgan matn 👇 <pre>{message.text}</pre>\n\n👉@ttsuzgenbot', 
 				title='@ttsuzgenbot', 
 				protect_content=True
 			)
