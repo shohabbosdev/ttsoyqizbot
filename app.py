@@ -2,6 +2,9 @@ from config import token, ttsurl
 import telebot
 import requests
 import urllib3
+from keep_alive import keep_alive
+
+keep_alive()
 
 bot = telebot.TeleBot(token, parse_mode="html")
 
