@@ -2,8 +2,8 @@ import telebot
 from telebot import util
 from config import token
 from braille_converter import BrailleConverter
-from jpgtotext import jpgtotext
-from texttospeech import image_detect
+from jpgtotext import image_detect
+from texttospeech import texttospeech
 from io import BytesIO
 from time import sleep
 from keep_alive import keep_alive
