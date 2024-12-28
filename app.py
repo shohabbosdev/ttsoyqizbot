@@ -3,7 +3,7 @@ from telebot import util
 from config import token
 from braille_converter import BrailleConverter
 from jpgtotext import jpgtotext
-from texttospeech import texttospeech
+from texttospeech import image_detect
 from io import BytesIO
 from time import sleep
 from keep_alive import keep_alive
@@ -59,7 +59,7 @@ class TTSBot:
         downloaded_file = self.bot.download_file(file_info.file_path)
         image_stream = BytesIO(downloaded_file)
         image_stream.name = 'temp_image.jpg'
-        return jpgtotext(image_stream)
+        return image_detect(image_stream)
 
     def split_text(self, text):
         if len(text) <= CHUNK_SIZE:
