@@ -1,19 +1,23 @@
-from PIL import Image
-import pytesseract
-import re
+import requests
+from config import api_token
 
-def clean_text(text):
-    text = text.replace("\n",' ')
-    return re.sub(r'[^a-zA-Z0-9\s,.!?]', '', text)
 
-def jpgtotext(image):
-    try:
-        image = Image.open(image)
-        pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe' 
-        text = pytesseract.image_to_string(image)
-        return clean_text(text)
-    except Exception as e:
-        return f"Xatolik xabari: {e}"
+def image_detect(image):  
+    files = {'image': image}  
+    headers = {'X-Api-Key': f"{api_token}"}  
+    try:  
+        response = requests.post('https://api.api-ninjas.com/v1/imagetotext', headers=headers, files=files)  
+        if response.status_code == 200:  
+            print("Hammasi joyida")
+            uzunligi=len(response.json())
+            text=""
+            for i in range(uzunligi):
+                text+=f"{response.json()[i]['text']} "
+            return text
+        else:  
+            return f"Xatolik: {response.status_code}, {response.text}"  
+    except Exception as e:  
+        return f"Xatolik: {e}"  
 # sudo apt update  
 # sudo apt install tesseract-ocr
 # pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
